@@ -255,7 +255,7 @@ def display_3_hist(img_list, img_title_list):
 # Write resized images to a (existing) directory. 
 # Resized img file name has "_img_size" in its name.
 # img_size is assumed to be same in both dimensions (i.e. aspect ratio = 1) 
-def resize_imgs(img_list, img_dir_out, img_size):
+def resize_imgs(img_list, img_dir_out, img_size, ):
 
     count = 0
     for img_dict in img_list:
@@ -323,27 +323,44 @@ def flip_imgs(img_list, img_dir_out, flip_axis= 1):
     print(f"Number of images flipped: {count}")
 
 
-# Read image data from an image list and append the image data to to img_data
-def append_img_data(img_data, img_list):
+# Read image data from an image list and append images to img_data as rows
+def append_img_data(img_list, img_data, toFloat = True):
 
     for img_dict in img_list:
 
         file_name_fullpath = img_dict['file_name_fullpath']
-        file_stem = img_dict['file_stem']
-        file_suffix = img_dict['file_suffix']
-        file_masks = img_dict['file_masks']
-        
-        # file_masks should not be empty
-        assert file_masks, f"Mask not found for image {file_name_fullpath}"
-        file_mask = file_masks[0]
-
-        img = img_read(file_name_fullpath, toFloat = True)
-        img_mask = img_read(file_mask, toFloat = True)
+        img = img_read(file_name_fullpath, toFloat)
 
         img = img.reshape((1, -1))
-        img_mask = img_mask.reshape((1, -1))
-
         img_data = np.append(img_data, img, axis=0)
     
     return img_data
+
+
+# Read image data from an image list, extract SIFT or ORB descriptors and append images to img_descriptor as rows
+def append_img_descriptors(img_list, img_descriptors, img_descriptors_list, descriptor_type, nfeatures):
+
+    for img_dict in img_list:
+
+        file_name_fullpath = img_dict['file_name_fullpath']
+        img = img_read(file_name_fullpath, toFloat= False)
+
+        if descriptor_type == 'SIFT':
+            # Create SIFT feature extractor, detect features (keypoints and descriptors) from the image
+            sift = cv2.SIFT_create(nfeatures)
+            keypoints, descriptors = sift.detectAndCompute(img, None)
+            # A list of image descriptors (separated for each image)
+            img_descriptors_list.append(descriptors)
+            img_descriptors = np.append(img_descriptors, descriptors, axis=0)
+            
+
+        if descriptor_type == 'ORB':
+            # Create SIFT feature extractor, detect features (keypoints and descriptors) from the image
+            orb = cv2.ORB_create(nfeatures)
+            keypoints, descriptors = orb.detectAndCompute(img, None)
+            # A list of image descriptors (separated for each image)
+            img_descriptors_list.append(descriptors)
+            img_descriptors = np.append(img_descriptors, descriptors, axis=0)
+    
+    return (img_descriptors, img_descriptors_list)
 
