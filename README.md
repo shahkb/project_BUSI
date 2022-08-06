@@ -47,9 +47,15 @@ The folder contains data imported from Kaggle: <https://www.kaggle.com/datasets/
 
  - The notebook `image_resize.ipynb` preforms resizing of images in the 3 datasets to `512 x 512`, `256 x 256`, `128 x 128` and `64 x 64` resolutions.
 
+ - The notebook `image_analysis.ipynb` shows our custom feature engineering and insights into the features we ended up choosing.
+
  - The notebook `image_pca_tsne_analysis.ipynb` performs PCA analysis of benign and malignant images to reduce the dimensions.
 
  - The notebook `image_classification.ipynb` performs classification of images to detect benign and malignant tumors. It uses logistic regression, and bag of visual words, with and without PCA for dimensionality reduction.
+
+- The notebook `image_classification_bovw.ipynb` performs classification of images to detect benign and malignant tumors. It uses bag of visual words, with and without PCA for dimensionality reduction.
+ 
+ - The notebook `CNN_model.ipynb` performs classification of images to detect benign and malignant tumors using a CNN model.
 
 ### Python files
 
