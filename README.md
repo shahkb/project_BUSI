@@ -51,18 +51,19 @@ The folder contains data imported from Kaggle: <https://www.kaggle.com/datasets/
 
  - The notebook `image_pca_tsne_analysis.ipynb` performs PCA analysis of benign and malignant images to reduce the dimensions.
 
- - The notebook `image_classification.ipynb` performs classification of images to detect benign and malignant tumors. It uses logistic regression, and bag of visual words, with and without PCA for dimensionality reduction.
+ - The notebook `image_classification.ipynb` performs classification of images to detect benign and malignant tumors. It uses logistic regression with and without PCA for dimensionality reduction. We use Gridsearch to tune the models.
 
-- The notebook `image_classification_bovw.ipynb` performs classification of images to detect benign and malignant tumors. It uses bag of visual words, with and without PCA for dimensionality reduction.
- 
+- The notebook `image_classification_bovw.ipynb` performs classification of images to detect benign and malignant tumors. It uses Bag of Visual Words (BoVW), with logistic regression and support vector machine (SVM) as underlying models. For feature descriptor, we experiment with both SIFT and ORB, while clustering is done using K-Means. We use Gridsearch to tune the models.
+
  - The notebook `CNN_model.ipynb` performs classification of images to detect benign and malignant tumors using a CNN model.
 
 ### Python files
 
 - `utils.py` contains helper functions used in Jupyter notebooks for reading, transforming, writing, and analyzing BUSI.
 
+### PDF file
 
-### More to follow ......
+- `w281 - Final Presentation.pdf` summarizes our results. It was presented during the final live session (August 3rd, 2022).
 
 
 
